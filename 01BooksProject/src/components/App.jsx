@@ -1,14 +1,15 @@
-import { Component } from "react";
-import BookList from "./BookList";
-import BookContext from '../contexts/BookContext';
-export default class App extends Component {
+import React from 'react';
+import BookList from './BookList';
+import BookContextProvider from '../contexts/BookContext/';
+const App = () => {
 
-    static contextType = BookContext;
-
-    render() {
-        const books = this.context;
-        return (
-            <BookList books={books}/>
-        )
-    }
+    return (
+        <BookContextProvider>
+            <BookList />
+        </BookContextProvider>
+    )
 }
+
+export default App;
+
+
