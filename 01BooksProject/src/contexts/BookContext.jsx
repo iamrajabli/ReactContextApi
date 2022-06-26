@@ -1,5 +1,4 @@
 import React from 'react';
-
 const BookContext = React.createContext();
 
 class BookContextProvider extends React.Component {
