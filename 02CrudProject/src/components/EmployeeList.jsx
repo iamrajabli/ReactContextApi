@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { EmployeeContext } from '../contexts/EmployeeContext';
 import { Modal, Button } from 'react-bootstrap';
 import Employee from './Employee';
@@ -6,10 +6,20 @@ import AddForm from './AddForm';
 
 const EmployeeList = () => {
 
+    // GET CONTEXT
     const { employees } = useContext(EmployeeContext);
+
+    // CREATE STATE
     const [show, setShow] = useState(false);
 
-    const handleShow = () => setShow(!show)
+    // SHOW MODAL AFTER CLICKING BUTTON [Add New Employee]
+    const handleShow = () => setShow(true)
+
+    // CLOSE MODAL AFTER CLICKING BUTTON [Close]
+    const handleClose = () => setShow(false);
+
+    // FOR CLOSING MODAL AFTER CHANGING CONTEXT
+    useEffect(() => handleClose,[employees]);
 
     return (
         <>
@@ -43,11 +53,7 @@ const EmployeeList = () => {
                 </tbody>
             </table>
 
-            <Button variant="primary" onClick={handleShow}>
-                Launch demo modal
-            </Button>
-
-            <Modal show={show} onHide={handleShow}>
+            <Modal show={show} onHide={handleClose}>
                 <Modal.Header >
                     <Modal.Title>Modal heading</Modal.Title>
                 </Modal.Header>
@@ -55,10 +61,10 @@ const EmployeeList = () => {
                     <AddForm />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleShow}>
+                    <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleShow}>
+                    <Button variant="primary" onClick={handleClose}>
                         Save Changes
                     </Button>
                 </Modal.Footer>

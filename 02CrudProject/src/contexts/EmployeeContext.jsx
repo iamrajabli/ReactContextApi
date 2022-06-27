@@ -5,7 +5,7 @@ const EmployeeContext = createContext();
 
 const EmployeeContextProvider = (props) => {
 
-    const [employees] = useState([
+    const [employees, setEmployees] = useState([
         { id: uuidv4(), name: 'Thomas Hardy', email: 'thomashardy@mail.com', address: '89 Chiaroscuro Rd, Portland, USA', phone: '(171) 555-2222' },
         { id: uuidv4(), name: 'Dominique Perrier', email: 'dominiqueperrier@mail.com', address: 'Obere Str. 57, Berlin, Germany', phone: '(313) 555-5735' },
         { id: uuidv4(), name: 'Maria Anders', email: 'mariaanders@mail.com', address: '25, rue Lauriston, Paris, France', phone: '(503) 555-9931' },
@@ -13,8 +13,13 @@ const EmployeeContextProvider = (props) => {
         { id: uuidv4(), name: 'Martin Blank', email: 'martinblank@mail.com', address: 'Via Monte Bianco 34, Turin, Italy', phone: '(480) 631-2097' }
     ]);
 
+    const addNewEmployee = (newEmployee) => {
+        setEmployees([...employees, {id:uuidv4(), ...newEmployee}]);
+    }
+
+
     return (
-        <EmployeeContext.Provider value={{employees}}>
+        <EmployeeContext.Provider value={{employees, addNewEmployee}}>
             {props.children}
         </EmployeeContext.Provider>
     )
