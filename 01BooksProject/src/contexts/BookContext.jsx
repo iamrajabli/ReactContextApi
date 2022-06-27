@@ -1,8 +1,8 @@
-import React from 'react';
-const BookContext = React.createContext();
+import { Component, createContext } from 'react';
+const BookContext = createContext();
 
 
-class BookContextProvider extends React.Component {
+class BookContextProvider extends Component {
 
     state = {
         books: [

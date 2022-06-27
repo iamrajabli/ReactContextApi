@@ -1,6 +1,6 @@
 import { Component } from "react"
-import './Book.css';
 import { ThemeContext } from "../../contexts/ThemeContext";
+import './Book.css';
 
 export default class Book extends Component {
     render() {

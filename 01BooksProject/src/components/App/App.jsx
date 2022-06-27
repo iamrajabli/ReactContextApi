@@ -1,7 +1,7 @@
-import React from 'react';
 import BookList from '../BookList/BookList';
 import BookContextProvider from '../../contexts/BookContext';
 import ThemeContextProvider from '../../contexts/ThemeContext';
+
 const App = () => {
 
     return (
