@@ -1,5 +1,5 @@
 import { useState, createContext } from "react";
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 const EmployeeContext = createContext();
 
@@ -13,13 +13,24 @@ const EmployeeContextProvider = (props) => {
         { id: uuidv4(), name: 'Martin Blank', email: 'martinblank@mail.com', address: 'Via Monte Bianco 34, Turin, Italy', phone: '(480) 631-2097' }
     ]);
 
+    // FOR ADDING NEW DATA
     const addNewEmployee = (newEmployee) => {
-        setEmployees([...employees, {id:uuidv4(), ...newEmployee}]);
+        setEmployees([...employees, { id: uuidv4(), ...newEmployee }]);
     }
 
+    // FOR REMOVING DATA
+    const removeEmployee = (id) => {
+        setEmployees(employees.filter(employee => employee.id !== id));
+    }
+
+    // FOR EDITING DATA
+    const editEmployee = (id, editedData) => {
+        // setEmployees([...employees.filter(employee => employee.id !== id), editedData]);
+        setEmployees(employees.map(employee => employee.id === id ? editedData : employee));
+    }
 
     return (
-        <EmployeeContext.Provider value={{employees, addNewEmployee}}>
+        <EmployeeContext.Provider value={{ employees, addNewEmployee, removeEmployee, editEmployee }}>
             {props.children}
         </EmployeeContext.Provider>
     )

@@ -1,11 +1,11 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { EmployeeContext } from '../contexts/EmployeeContext';
 
-const AddForm = () => {
+const EditForm = (props) => {
 
     // GET CONTEXT
-    const { addNewEmployee } = useContext(EmployeeContext);
+    const { employees, editEmployee } = useContext(EmployeeContext);
 
     // CREATE STATE
     const [dataForm, setDataForm] = useState({ name: '', email: '', address: '', phone: '' });
@@ -15,19 +15,28 @@ const AddForm = () => {
         setDataForm({ ...dataForm, [e.target.name]: e.target.value });
     }
 
-    // DESTRUCTURING FOR SET VALUE
+    // DESTRUCTURING FOR SETTING VALUE
     const { name, email, address, phone } = dataForm;
+
+    // DESTRUCTURING FOR SETTING STATE
+    const { id } = props;
 
     // SEND DATA TO CONTEXT
     const sendData = e => {
         e.preventDefault();
-        addNewEmployee(dataForm);
+        editEmployee(id, dataForm);
     }
 
-    
+    // SET STATE FOR GETTING CURRENTLY EMPLOYEE
+    useEffect(() => {
+        setDataForm(...employees.filter(employee => employee.id == id));
+
+    }, [])
+
+
 
     return (
-        <Form onSubmit={(e) => sendData(e) }>
+        <Form onSubmit={(e) => sendData(e)}>
             <Form.Group className='mb-4'>
                 <Form.Control
                     onChange={(e) => inputChange(e)}
@@ -72,14 +81,14 @@ const AddForm = () => {
             </Form.Group>
 
             <Button
-                variant="success"
+                variant="danger"
                 type="submit"
                 style={{ width: "100%" }}
             >
-                Add New Employee
+                Edit Employee
             </Button>
         </Form>
     )
 }
 
-export default AddForm;
+export default EditForm;
